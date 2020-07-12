@@ -113,9 +113,9 @@ function editData() {
 }
 
 function onLoad() {
-	data = JSON.parse(localStorage.getItem("data"));
+	data = JSON.parse(localStorage.getItem("data")) || [];
 	console.log(data);
-	console.log(JSON.parse(localStorage.getItem("his")));
+	console.log(JSON.parse(localStorage.getItem("his")) || []);
 
 	var iframe = document.getElementById("iframe");
 	iframe.src = getURL(data);
