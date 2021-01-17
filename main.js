@@ -135,7 +135,8 @@ function onLoad() {
 	tr.appendChild(td);
 	table.appendChild(tr);
 
-	for (let i = 0; i < data.length; i++) {
+	// navigator on left
+	for (let i = 0; i <= data.length; i++) {
 		tr = document.createElement("tr");
 		td = document.createElement("td");
 		td.appendChild(document.createTextNode(i+1));
@@ -143,12 +144,13 @@ function onLoad() {
 		button = document.createElement("input");
 		button.setAttribute("type", "button");
 		button.setAttribute("value", "del " + (i + 1));
+		if (i == data.length) button.setAttribute("disabled", true);
 		button.setAttribute("onclick", `removeData(data, ${i});`);
 		tr.appendChild(button);
 		button = document.createElement("input");
 		button.setAttribute("type", "button");
 		button.setAttribute("value", `swap ${i} ${i + 1}`);
-		if (i == 0) button.setAttribute("disabled", true);
+		if (i == 0 || i == data.length) button.setAttribute("disabled", true);
 		button.setAttribute("onclick", `swapData(data, ${i-1}, ${i});`);
 		tr.appendChild(button);
 		button = document.createElement("input");
@@ -157,6 +159,8 @@ function onLoad() {
 		button.setAttribute("onclick", `restoreData(data, ${i});`);
 		tr.appendChild(button);
 		table.appendChild(tr);
+
+		if (i == data.length) break;
 
 		tr = document.createElement("tr");
 		td = document.createElement("td");
@@ -197,28 +201,6 @@ function onLoad() {
 		tr.appendChild(td);
 		table.appendChild(tr);
 	}
-
-	tr = document.createElement("tr");
-	td = document.createElement("td");
-	tr.appendChild(td);
-	button = document.createElement("input");
-	button.setAttribute("type", "button");
-	button.setAttribute("value", "del " + (data.length + 1));
-	button.setAttribute("disabled", true);
-	button.setAttribute("onclick", `removeData(data, ${data.length});`);
-	tr.appendChild(button);
-	button = document.createElement("input");
-	button.setAttribute("type", "button");
-	button.setAttribute("value", `swap ${data.length} ${data.length + 1}`);
-	button.setAttribute("disabled", true);
-	button.setAttribute("onclick", `swapData(data, ${data.length-1}, ${data.length});`);
-	tr.appendChild(button);
-	button = document.createElement("input");
-	button.setAttribute("type", "button");
-	button.setAttribute("value", "restore");
-	button.setAttribute("onclick", `restoreData(data, ${data.length});`);
-	tr.appendChild(button);
-	table.appendChild(tr);
 }
 
 onLoad();
