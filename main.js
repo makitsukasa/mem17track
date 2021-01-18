@@ -120,86 +120,83 @@ function onLoad() {
 	var iframe = document.getElementById("iframe");
 	iframe.src = getURL(data);
 
-	var table = document.getElementById("table");
+	var tbody = document.getElementById("tbody");
 	var tr = document.createElement("tr");
 	var td = document.createElement("td");
+	var p = document.createElement("p");
 	var button = document.createElement("input");
 	var text = null;
-
-	tr.appendChild(td);
-	td = document.createElement("td");
-	button.setAttribute("type", "button");
-	button.setAttribute("value", "direct edit");
-	button.setAttribute("onclick", `editData();`);
-	td.appendChild(button);
-	tr.appendChild(td);
-	table.appendChild(tr);
 
 	// navigator on left
 	for (let i = 0; i <= data.length; i++) {
 		tr = document.createElement("tr");
+
 		td = document.createElement("td");
-		td.appendChild(document.createTextNode(i+1));
-		tr.appendChild(td);
-		button = document.createElement("input");
-		button.setAttribute("type", "button");
-		button.setAttribute("value", "del " + (i + 1));
-		if (i == data.length) button.setAttribute("disabled", true);
-		button.setAttribute("onclick", `removeData(data, ${i});`);
-		tr.appendChild(button);
-		button = document.createElement("input");
-		button.setAttribute("type", "button");
-		button.setAttribute("value", `swap ${i} ${i + 1}`);
-		if (i == 0 || i == data.length) button.setAttribute("disabled", true);
-		button.setAttribute("onclick", `swapData(data, ${i-1}, ${i});`);
-		tr.appendChild(button);
+		p = document.createElement("p");
 		button = document.createElement("input");
 		button.setAttribute("type", "button");
 		button.setAttribute("value", "restore");
 		button.setAttribute("onclick", `restoreData(data, ${i});`);
-		tr.appendChild(button);
-		table.appendChild(tr);
-
-		if (i == data.length) break;
-
-		tr = document.createElement("tr");
-		td = document.createElement("td");
-		td.appendChild(document.createTextNode("number"));
+		p.appendChild(button);
+		p.appendChild(document.createElement("br"));
+		button = document.createElement("input");
+		button.setAttribute("type", "button");
+		button.setAttribute("value", `${i} ↔ ${i + 1}`);
+		button.setAttribute("onclick", `swapData(data, ${i-1}, ${i});`);
+		if (i == 0 || i == data.length) button.setAttribute("disabled", true);
+		p.appendChild(button);
+		p.appendChild(document.createElement("br"));
+		button = document.createElement("input");
+		button.setAttribute("type", "button");
+		button.setAttribute("value", `del ${i+1}`);
+		button.setAttribute("onclick", `removeData(data, ${i});`);
+		if (i == data.length) button.setAttribute("disabled", true);
+		p.appendChild(button);
+		td.appendChild(p);
 		tr.appendChild(td);
+
+		if (i == data.length) {
+			td = document.createElement("td");
+			tr.appendChild(td);
+			td = document.createElement("td");
+			tr.appendChild(td);
+			tbody.appendChild(tr);
+			break;
+		}
+
 		td = document.createElement("td");
+		p = document.createElement("p");
+		p.appendChild(document.createTextNode("number"));
+		p.appendChild(document.createElement("br"));
+		p.appendChild(document.createTextNode("carrer"));
+		p.appendChild(document.createElement("br"));
+		p.appendChild(document.createTextNode("memo"));
+		td.appendChild(p);
+		tr.appendChild(td);
+
+		td = document.createElement("td");
+		p = document.createElement("p");
 		text = document.createElement("input");
 		text.setAttribute("type", "text");
 		text.setAttribute("value", data[i]["number"]);
 		text.addEventListener('change', function(event){onChange(data, i, "number", event.target.value)});
-		td.appendChild(text);
-		tr.appendChild(td);
-		table.appendChild(tr);
-
-		tr = document.createElement("tr");
-		td = document.createElement("td");
-		td.appendChild(document.createTextNode("carrer"));
-		tr.appendChild(td);
-		td = document.createElement("td");
+		p.appendChild(text);
+		p.appendChild(document.createElement("br"));
 		text = document.createElement("input");
 		text.setAttribute("type", "text");
 		text.setAttribute("value", data[i]["carrer"]);
 		text.addEventListener('change', function(event){onChange(data, i, "carrer", event.target.value)});
-		td.appendChild(text);
-		tr.appendChild(td);
-		table.appendChild(tr);
-
-		tr = document.createElement("tr");
-		td = document.createElement("td");
-		td.appendChild(document.createTextNode("memo"));
-		tr.appendChild(td);
-		td = document.createElement("td");
+		p.appendChild(text);
+		p.appendChild(document.createElement("br"));
 		text = document.createElement("input");
 		text.setAttribute("type", "text");
 		text.setAttribute("value", data[i]["memo"]);
 		text.addEventListener('change', function(event){onChange(data, i, "memo", event.target.value)});
-		td.appendChild(text);
+		p.appendChild(text);
+		td.appendChild(p);
 		tr.appendChild(td);
-		table.appendChild(tr);
+
+		tbody.appendChild(tr);
 	}
 }
 
