@@ -9,6 +9,7 @@
 			#navigator_table {
 				border: 0;
 				padding: 0;
+				margin: 0;
 				border-collapse: collapse;
 				border-spacing: 0;
 				display: table;
@@ -17,15 +18,16 @@
 			#navigator_table tbody tr th, #navigator_table tbody tr td {
 				border: 0;
 				padding: 0;
-			}
-			#navigator_table tbody tr:nth-child(2n+1) {
-				background-color: #f1f3fa;
+				margin: 0;
 			}
 			#navigator_table tbody tr td p {
 				height: 67px;
 				max-height: 67px;
 				margin: 0;
 				overflow: hidden;
+			}
+			#navigator_table tbody tr:nth-child(2n+1) {
+				background-color: #f1f3fa;
 			}
 			#navigator_table tbody tr td p input[type="button"]{
 				border: 1;
@@ -34,7 +36,8 @@
 			#navigator_table tbody tr td p input[type="text"]{
 				border: 1;
 				padding: 0;
-				width: 132px;
+				margin: 0 5px 0 0;
+				width: 127px;
 			}
 
 		</style>
