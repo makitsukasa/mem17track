@@ -120,14 +120,9 @@ function onLoad() {
 	var iframe = document.getElementById("iframe");
 	iframe.src = getURL(data);
 
-	var tbody = document.getElementById("tbody");
-	var tr = document.createElement("tr");
-	var td = document.createElement("td");
-	var p = document.createElement("p");
-	var button = document.createElement("input");
-	var text = null;
-
 	// navigator on left
+	var tbody = document.getElementById("tbody");
+	var tr, td, p, button, text;
 	for (let i = 0; i <= data.length; i++) {
 		tr = document.createElement("tr");
 
@@ -166,16 +161,22 @@ function onLoad() {
 
 		td = document.createElement("td");
 		p = document.createElement("p");
+		p.appendChild(document.createTextNode("memo"));
+		p.appendChild(document.createElement("br"));
 		p.appendChild(document.createTextNode("number"));
 		p.appendChild(document.createElement("br"));
 		p.appendChild(document.createTextNode("carrer"));
-		p.appendChild(document.createElement("br"));
-		p.appendChild(document.createTextNode("memo"));
 		td.appendChild(p);
 		tr.appendChild(td);
 
 		td = document.createElement("td");
 		p = document.createElement("p");
+		text = document.createElement("input");
+		text.setAttribute("type", "text");
+		text.setAttribute("value", data[i]["memo"]);
+		text.addEventListener('change', function(event){onChange(data, i, "memo", event.target.value)});
+		p.appendChild(text);
+		p.appendChild(document.createElement("br"));
 		text = document.createElement("input");
 		text.setAttribute("type", "text");
 		text.setAttribute("value", data[i]["number"]);
@@ -186,12 +187,6 @@ function onLoad() {
 		text.setAttribute("type", "text");
 		text.setAttribute("value", data[i]["carrer"]);
 		text.addEventListener('change', function(event){onChange(data, i, "carrer", event.target.value)});
-		p.appendChild(text);
-		p.appendChild(document.createElement("br"));
-		text = document.createElement("input");
-		text.setAttribute("type", "text");
-		text.setAttribute("value", data[i]["memo"]);
-		text.addEventListener('change', function(event){onChange(data, i, "memo", event.target.value)});
 		p.appendChild(text);
 		td.appendChild(p);
 		tr.appendChild(td);
