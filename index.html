@@ -27,15 +27,20 @@
 				margin: 0;
 				overflow: hidden;
 			}
-			#navigator_table tbody tr:nth-child(2n+1) {
+			#navigator_table tbody tr:nth-child(2n+1), #navigator_table tbody tr:nth-child(2n+1) input[type="text"] {
 				background-color: #f1f3fa;
 			}
+			#navigator_table tbody tr:nth-child(2n), #navigator_table tbody tr:nth-child(2n) input[type="text"] {
+				background-color: #fff8f0;
+			}
 			#navigator_table tbody tr td p input[type="button"]{
-				border: 1;
+				background-color: #ffffff;
+				border-radius: 3px;
+				border: 0;
 				padding: 0;
 			}
 			#navigator_table tbody tr td p input[type="text"]{
-				border: 1;
+				border: 0;
 				padding: 0;
 				margin: 0 5px 0 0;
 				width: 127px;
