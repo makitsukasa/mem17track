@@ -34,9 +34,9 @@ function restoreData(data, i) {
 	his = JSON.parse(localStorage.getItem("his"));
 	if (his.length == 0) {
 		data.splice(i, 0, {
-				number: "00000",
-				carrer: "00000",
-				memo  : "new"
+			number: "00000",
+			carrer: "190271",
+			memo  : "new"
 		});
 	}
 	else {
