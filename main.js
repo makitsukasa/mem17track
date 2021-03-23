@@ -113,10 +113,16 @@
 				for (let e of (await dbx.filesListFolder({path: ""})).result.entries) {
 					filename_list.push(e.name);
 				}
-				if (!filename_list.includes("data.json")) {
+				if (filename_list.includes("data.json")) {
+					localStorage.setItem("data", JSON.stringify(loadData()));
+				}
+				else {
 					await saveData(JSON.parse(localStorage.getItem("data")));
 				}
-				if (!filename_list.includes("hist.json")) {
+				if (filename_list.includes("hist.json")) {
+					localStorage.setItem("hist", JSON.stringify(loadHist()));
+				}
+				else {
 					await saveHist(JSON.parse(localStorage.getItem("hist")));
 				}
 				location.reload();
