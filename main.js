@@ -1,4 +1,9 @@
 (() => {
+	// 悪い人にはこの2行は見えない
+	var appkey = "0ept0ltrm98q2kr";
+	var appsecret = "pgtr3kaiozis3zt";
+	var dbx = false;
+
 	function getURL (data) {
 		var url = "https://t.17track.net/en#nums=";
 		for (let i = 0; i < data.length; i++) {
@@ -34,6 +39,34 @@
 			};
 		}
 		return ans;
+	}
+
+	document.getElementById("get_access_code").onclick = function () {
+		var authorizeUrl = "https://www.dropbox.com/1/oauth2/authorize?response_type=code&client_id=" + appkey;
+		window.open(authorizeUrl);
+	}
+
+	document.getElementById("set_access_code").onclick = function () {
+		var access_code = $("#access_code").val();
+		if (!access_code) return;
+		console.log(access_code);
+		$.ajax({
+			type: "POST",
+			url: "https://api.dropboxapi.com/1/oauth2/token",
+			data: {
+				"code": access_code,
+				"grant_type": "authorization_code",
+				"client_id": appkey,
+				"client_secret": appsecret,
+			},
+			success: function(data){
+				var jsonData = JSON.parse(data);
+				// console.log(jsonData.access_token);
+				// console.log(jsonData.token_type);
+				// console.log(jsonData.uid);
+				localStorage.setItem("access_token", jsonData.access_token);
+			}
+		});
 	}
 
 	$("#direct_edit").on("click", () => {

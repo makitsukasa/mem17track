@@ -62,6 +62,9 @@
 					<table id=navigator_table style="table-layout:fixed;">
 						<thead><tr><th height="121px"><div style="text-align:left">
 							<input type="button" id="direct_edit" value="direct edit"><br>
+							<input type="button" id="get_access_code" value="get access code">
+							<input type="text" id="access_code" placeholder="long long token" value="">
+							<input type="button" id="set_access_code" value="set new access code">
 						</div></th></tr></thead>
 						<tbody id="tbody" style="display:block"></tbody>
 					</table>
@@ -80,6 +83,7 @@
 			</tr>
 		</table>
 		<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+		<script src="https://unpkg.com/dropbox/dist/Dropbox-sdk.min.js"></script>
 		<script type="text/javascript" src="main.js"></script>
 	</body>
 </html>
