@@ -43,7 +43,7 @@
 
 	async function saveData (data) {
 		if (dbx) {
-			await dbx.filesUpload({
+			dbx.filesUpload({
 				path: "/data.json",
 				mode: "overwrite",
 				contents: JSON.stringify(data),
@@ -54,7 +54,7 @@
 
 	async function saveHist (hist) {
 		if (dbx) {
-			await dbx.filesUpload({
+			dbx.filesUpload({
 				path: "/hist.json",
 				mode: "overwrite",
 				contents: JSON.stringify(hist),
@@ -66,7 +66,6 @@
 	async function loadData () {
 		if (dbx) {
 			var responce = await dbx.filesDownload({path: "/data.json"});
-			console.log(await responce.result.fileBlob.text());
 			return JSON.parse(await responce.result.fileBlob.text());
 		}
 		else {
@@ -84,12 +83,13 @@
 		}
 	}
 
-	document.getElementById("get_access_code").onclick = async () => {
+	$("#get_access_code").on("click", async () => {
 		var authorizeUrl = "https://www.dropbox.com/1/oauth2/authorize?response_type=code&client_id=" + appkey;
 		window.open(authorizeUrl);
-	}
+	});
 
-	document.getElementById("set_access_code").onclick = async () => {
+	$("#set_access_code").on("click", async () => {
+		$("#set_access_code").attr("disabled", true);
 		var access_code = $("#access_code").val();
 		if (!access_code) return;
 		console.log(access_code);
@@ -122,7 +122,7 @@
 				location.reload();
 			}
 		});
-	}
+	});
 
 	$("#direct_edit").on("click", () => {
 		$("#textarea_data").attr("style", "");
