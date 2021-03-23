@@ -126,12 +126,11 @@
 
 	$("#direct_edit").on("click", () => {
 		$("#textarea_data").attr("style", "");
-		$("#textarea_data").val(convertJSONToCSV(JSON.parse(localStorage.getItem("data"))));
+		$("#textarea_data").val(convertJSONToCSV(loadData()));
 		$("#textarea_hist").attr("style", "");
-		$("#textarea_hist").val(convertJSONToCSV(JSON.parse(localStorage.getItem("hist"))));
+		$("#textarea_hist").val(convertJSONToCSV(loadHist()));
 		$("#save").attr("style", "");
 
-		$("#save").attr("style", "");
 		$("#save").on("click", async () => {
 			$("#save").attr("disabled", true);
 			await saveData(convertCSVToJSON($("#textarea_data").val().trim()));
