@@ -114,13 +114,13 @@
 					filename_list.push(e.name);
 				}
 				if (filename_list.includes("data.json")) {
-					localStorage.setItem("data", JSON.stringify(loadData()));
+					localStorage.setItem("data", JSON.stringify(await loadData()));
 				}
 				else {
 					await saveData(JSON.parse(localStorage.getItem("data")));
 				}
 				if (filename_list.includes("hist.json")) {
-					localStorage.setItem("hist", JSON.stringify(loadHist()));
+					localStorage.setItem("hist", JSON.stringify(await loadHist()));
 				}
 				else {
 					await saveHist(JSON.parse(localStorage.getItem("hist")));
