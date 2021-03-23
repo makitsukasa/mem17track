@@ -43,7 +43,7 @@
 
 	async function saveData (data) {
 		if (dbx) {
-			dbx.filesUpload({
+			await dbx.filesUpload({
 				path: "/data.json",
 				mode: "overwrite",
 				contents: JSON.stringify(data),
@@ -54,7 +54,7 @@
 
 	async function saveHist (hist) {
 		if (dbx) {
-			dbx.filesUpload({
+			await dbx.filesUpload({
 				path: "/hist.json",
 				mode: "overwrite",
 				contents: JSON.stringify(hist),
@@ -89,10 +89,9 @@
 	});
 
 	$("#set_access_code").on("click", async () => {
-		$("#set_access_code").attr("disabled", true);
 		var access_code = $("#access_code").val();
 		if (!access_code) return;
-		console.log(access_code);
+		$("#set_access_code").attr("disabled", true);
 		$.ajax({
 			type: "POST",
 			url: "https://api.dropboxapi.com/1/oauth2/token",
