@@ -69,7 +69,7 @@
 			return JSON.parse(await responce.result.fileBlob.text());
 		}
 		else {
-			return JSON.parse(localStorage.getItem("data"));
+			return JSON.parse(localStorage.getItem("data")) || [];
 		}
 	}
 
@@ -79,7 +79,7 @@
 			return JSON.parse(await responce.result.fileBlob.text());
 		}
 		else {
-			return JSON.parse(localStorage.getItem("hist"));
+			return JSON.parse(localStorage.getItem("hist")) || [];
 		}
 	}
 
