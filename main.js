@@ -129,6 +129,7 @@
 		$("#textarea_data").val(convertJSONToCSV(JSON.parse(localStorage.getItem("data"))));
 		$("#textarea_hist").attr("style", "");
 		$("#textarea_hist").val(convertJSONToCSV(JSON.parse(localStorage.getItem("hist"))));
+		$("#save").attr("style", "");
 
 		$("#save").attr("style", "");
 		$("#save").on("click", async () => {
