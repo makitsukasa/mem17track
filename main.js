@@ -52,15 +52,15 @@
 		localStorage.setItem("data", JSON.stringify(data));
 	}
 
-	async function saveHis (his) {
+	async function saveHist (hist) {
 		if (dbx) {
 			await dbx.filesUpload({
-				path: "/his.json",
+				path: "/hist.json",
 				mode: "overwrite",
-				contents: JSON.stringify(his),
+				contents: JSON.stringify(hist),
 			});
 		}
-		localStorage.setItem("his", JSON.stringify(his));
+		localStorage.setItem("hist", JSON.stringify(hist));
 	}
 
 	async function loadData () {
@@ -74,13 +74,13 @@
 		}
 	}
 
-	async function loadHis () {
+	async function loadHist () {
 		if (dbx) {
-			var responce = await dbx.filesDownload({path: "/his.json"});
+			var responce = await dbx.filesDownload({path: "/hist.json"});
 			return JSON.parse(await responce.result.fileBlob.text());
 		}
 		else {
-			return JSON.parse(localStorage.getItem("his"));
+			return JSON.parse(localStorage.getItem("hist"));
 		}
 	}
 
@@ -116,8 +116,8 @@
 				if (!filename_list.includes("data.json")) {
 					await saveData(JSON.parse(localStorage.getItem("data")));
 				}
-				if (!filename_list.includes("his.json")) {
-					await saveHis(JSON.parse(localStorage.getItem("his")));
+				if (!filename_list.includes("hist.json")) {
+					await saveHist(JSON.parse(localStorage.getItem("hist")));
 				}
 				location.reload();
 			}
@@ -127,13 +127,13 @@
 	$("#direct_edit").on("click", () => {
 		$("#textarea_data").attr("style", "");
 		$("#textarea_data").val(convertJSONToCSV(JSON.parse(localStorage.getItem("data"))));
-		$("#textarea_his").attr("style", "");
-		$("#textarea_his").val(convertJSONToCSV(JSON.parse(localStorage.getItem("his"))));
+		$("#textarea_hist").attr("style", "");
+		$("#textarea_hist").val(convertJSONToCSV(JSON.parse(localStorage.getItem("hist"))));
 
 		$("#save").attr("style", "");
 		$("#save").on("click", async () => {
 			await saveData(convertCSVToJSON($("#textarea_data").val().trim()));
-			await saveHis(convertCSVToJSON($("#textarea_his").val().trim()));
+			await saveHist(convertCSVToJSON($("#textarea_hist").val().trim()));
 			location.reload();
 		});
 	});
@@ -142,7 +142,7 @@
 		var access_token = localStorage.getItem("access_token");
 		if (access_token) dbx = new Dropbox.Dropbox({accessToken: access_token});
 		var data = await loadData();
-		var his = await loadHis();
+		var hist = await loadHist();
 
 		var iframe = document.getElementById("iframe");
 		iframe.src = getURL(data);
@@ -151,12 +151,12 @@
 		for (let i = 0; i <= data.length; i++) {
 			$("#tbody").append($("<tr>", {id: `tr${i}`}).append($("<td>").append($("<p>").append(
 				$("<input>", {type: "button", id: `restore${i}`, value: "restore"}).on("click", async () => {
-					if (his.length == 0) {
+					if (hist.length == 0) {
 						data.splice(i, 0, {number: "00000", carrer: "190271", memo : "new"});
 					}
 					else {
-						data.splice(i, 0, his.shift());
-						await saveHis(his);
+						data.splice(i, 0, hist.shift());
+						await saveHist(hist);
 					}
 					await saveData(data);
 					location.reload();
@@ -180,8 +180,8 @@
 			).append(
 				$("<input>", {type: "button", id: `del${i}`, value: `del ${i+1}`}).on("click", async () => {
 					if (data[i]["number"] != "00000") {
-						his.splice(1, 0, data[i]);
-						await saveHis(his);
+						hist.splice(1, 0, data[i]);
+						await saveHist(hist);
 					}
 					data.splice(i, 1);
 					await saveData(data);
