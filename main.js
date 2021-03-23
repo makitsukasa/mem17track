@@ -133,6 +133,7 @@
 
 		$("#save").attr("style", "");
 		$("#save").on("click", async () => {
+			$("#save").attr("disabled", true);
 			await saveData(convertCSVToJSON($("#textarea_data").val().trim()));
 			await saveHist(convertCSVToJSON($("#textarea_hist").val().trim()));
 			location.reload();
@@ -151,7 +152,8 @@
 		// navigator on left
 		for (let i = 0; i <= data.length; i++) {
 			$("#tbody").append($("<tr>", {id: `tr${i}`}).append($("<td>").append($("<p>").append(
-				$("<input>", {type: "button", id: `restore${i}`, value: "restore"}).on("click", async () => {
+				$("<input>", {type: "button", id: `restore${i}`, value: "restore"}).on("click", async (e) => {
+					$(e.target).attr("disabled", true);
 					if (hist.length == 0) {
 						data.splice(i, 0, {number: "00000", carrer: "190271", memo : "new"});
 					}
@@ -165,7 +167,8 @@
 			).append(
 				$("<br>")
 			).append(
-				$("<input>", {type: "button", id: `swap${i}`, value: `${i} ↔ ${i + 1}`}).on("click", async () => {
+				$("<input>", {type: "button", id: `swap${i}`, value: `${i} ↔ ${i + 1}`}).on("click", async (e) => {
+					$(e.target).attr("disabled", true);
 					var l = data.length;
 					if (i < 0 || i >= l) {
 						alert("😜");
@@ -179,7 +182,8 @@
 			).append(
 				$("<br>")
 			).append(
-				$("<input>", {type: "button", id: `del${i}`, value: `del ${i+1}`}).on("click", async () => {
+				$("<input>", {type: "button", id: `del${i}`, value: `del ${i+1}`}).on("click", async (e) => {
+					$(e.target).attr("disabled", true);
 					if (data[i]["number"] != "00000") {
 						hist.splice(1, 0, data[i]);
 						await saveHist(hist);
