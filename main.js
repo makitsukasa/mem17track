@@ -133,6 +133,7 @@
 		$("#save").attr("style", "");
 		$("#save").on("click", async () => {
 			await saveData(convertCSVToJSON($("#textarea_data").val().trim()));
+			await saveHis(convertCSVToJSON($("#textarea_his").val().trim()));
 			location.reload();
 		});
 	});
