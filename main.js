@@ -126,9 +126,9 @@
 
 	$("#direct_edit").on("click", () => {
 		$("#textarea_data").attr("style", "");
-		$("#textarea_data").val(convertJSONToCSV(loadData()));
+		$("#textarea_data").val(convertJSONToCSV(JSON.parse(localStorage.getItem("data")) || []));
 		$("#textarea_hist").attr("style", "");
-		$("#textarea_hist").val(convertJSONToCSV(loadHist()));
+		$("#textarea_hist").val(convertJSONToCSV(JSON.parse(localStorage.getItem("hist")) || []));
 		$("#save").attr("style", "");
 
 		$("#save").on("click", async () => {
